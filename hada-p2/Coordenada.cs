@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hada
 {
-    internal class Coordenada
+    public class Coordenada
     {
         private int _fila;
         private int _columna;
