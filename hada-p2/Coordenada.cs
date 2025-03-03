@@ -68,10 +68,21 @@ namespace Hada
         {
             return this.Fila.GetHashCode() ^ this.Columna.GetHashCode();
         }
-        /*
-        public override bool Equals(object object)
+        
+        public override bool Equals(object obj)
         {
-            if 
-        }*/
+            if (obj is Coordenada otra)
+            {
+                return this.Fila == otra.Fila && this.Columna == otra.Columna;
+            }
+            return false;
+
+        }
+
+        public bool Equals(Coordenada coordenada) 
+        { 
+            if (coordenada == null) return false;  
+            return coordenada.Fila == this.Fila && coordenada.Columna == this.Columna;
+        }
     }
 }
