@@ -10,7 +10,7 @@ namespace Hada
     {
         public Dictionary<Coordenada, String> CoordenadasBarco { get; private set; }
         public string Nombre { get; set; }
-        public int NumDanyos { get; set; }
+        public int NumDanyos { get; set; } 
 
         //declaracion de los eventos
         public event EventHandler<TocadoArgs> EventoTocado;
