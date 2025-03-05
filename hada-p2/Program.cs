@@ -10,6 +10,7 @@ namespace Hada
     {
         static void Main(string[] args)
         {
+            Game juego = new Game();
         }
     }
 }
