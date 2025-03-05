@@ -41,14 +41,17 @@ namespace Hada
         {
             if (CoordenadasBarco.ContainsKey(c))
             {
-                CoordenadasBarco[c] += "_T";
-                NumDanyos++;
-                EventoTocado(this, new TocadoArgs(Nombre, c));
-
                 if (Hundido())
                 {
                     EventoHundido(this, new HundidoArgs(Nombre));
                 }
+                if (!CoordenadasBarco[c].EndsWith("_T")) //nose si hay que hacer esto
+                {
+                    CoordenadasBarco[c] += "_T";
+                    NumDanyos++;
+                    EventoTocado(this, new TocadoArgs(Nombre, c));
+                }
+                
             }
 
         }
@@ -65,15 +68,14 @@ namespace Hada
         public override string ToString()
         {
             bool estado = Hundido();
-            string resultado = $"[{Nombre}] - DAÑOS: [{NumDanyos}] - HUNDIDO: [{estado}] -  COORDENADAS:";
+            string resultado;
+            resultado = $"[{Nombre}] - DAÑOS: [{NumDanyos}] - HUNDIDO: [{estado}] -  COORDENADAS:";
             foreach(var coord in CoordenadasBarco)
             {
                 resultado += $" [({coord.Key.Fila}, {coord.Key.Columna}) :{Nombre}]";
             }
-            resultado += $"\n";
-            
+            Console.WriteLine(resultado);
             return resultado;
-
         }
 
     }
