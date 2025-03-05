@@ -100,6 +100,7 @@ namespace Hada
 
         public string DibujarTablero()
         {
+            /*
             int maxTam = 4;
             for (int k = 0; k < barcos.Count; k++)
             {
@@ -107,9 +108,21 @@ namespace Hada
                 {
                     maxTam = barcos[k].Nombre.Length;
                 }
+            }*/
+            int maxTam = 0;
+            for (int i = 0; i < TamTablero; i++)
+            {
+                for (int j = 0; j < TamTablero; j++)
+                {
+                    Coordenada co = new Coordenada(i, j);
+                    if (casillasTablero[co].Length > maxTam)
+                    {
+                        maxTam = casillasTablero[co].Length;
+                    }
+                }
             }
 
-            StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < TamTablero; i++)
             {
                 for(int j = 0; j < TamTablero; j++)
