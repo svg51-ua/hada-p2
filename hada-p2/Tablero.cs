@@ -32,6 +32,7 @@ namespace Hada
 
         public event EventHandler<TocadoArgs> BarcoTocado;
         public event EventHandler<HundidoArgs> BarcoHundido;
+        public event EventHandler<EventArgs> EventoFinPartida;
 
         public Tablero(int tamTablero, List<Barco> barcos)
         {
@@ -142,14 +143,32 @@ namespace Hada
             return stringBuilder.ToString();
         }
         
-        private void cuandoEventoTocado(object sender, EventArgs e)
+        private void cuandoEventoTocado(object sender, TocadoArgs e)
         {
-
+            casillasTablero[e.CoordenadaImpacto] = e.Nombre + "_T";
+            if (!coordenadasTocadas.Contains(e.CoordenadaImpacto))
+            {
+                coordenadasTocadas.Add(e.CoordenadaImpacto);
+                Console.WriteLine($"TABLERO: Barco [{e.Nombre}] tocado en Coordenada: [{e.CoordenadaImpacto}]");
+            }
         }
 
-        private void cuandoEventoHundido(object sender, EventArgs e)
+        private void cuandoEventoHundido(object sender, HundidoArgs e)
         {
+            Console.WriteLine($"TABLERO: Barco [{e.Nombre}] hundido!!");
+            bool hundido = true;
+            foreach (var barco in barcos)
+            {
+                if (!barco.Hundido())
+                {
+                    hundido = false;
+                }
+            }
 
+            if (hundido)
+            {
+                EventoFinPartida(this, EventArgs.Empty);
+            }
         }
 
 
