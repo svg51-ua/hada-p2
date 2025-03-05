@@ -21,6 +21,7 @@ namespace Hada
                     throw new ArgumentOutOfRangeException(
                         $"{nameof(value)} must be between 0 and 9.");
                 }
+                _fila = value;
             }
         }
 
@@ -34,6 +35,7 @@ namespace Hada
                     throw new ArgumentOutOfRangeException(
                         $"{nameof(value)} must be between 0 and 9.");
                 }
+                _columna = value;
             }
         }
 
