@@ -162,67 +162,6 @@ namespace Hada
         /// Si el barco está hundido se imprime en rojo
         /// </summary>
         /// <returns>Cadena de texto con el contenido final</returns>
-        /*public string DibujarTablero()
-        {
-            int maxTam = 0;
-            for (int i = 0; i < TamTablero; i++)
-            {
-                for (int j = 0; j < TamTablero; j++)
-                {
-                    Coordenada co = new Coordenada(i, j);
-                    if (casillasTablero[co].Length > maxTam)
-                    {
-                        maxTam = casillasTablero[co].Length;
-                    }
-                }
-            }
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < TamTablero; i++)
-            {
-                for (int j = 0; j < TamTablero; j++)
-                {
-                    Coordenada c = new Coordenada(i, j);
-                    int total = maxTam - casillasTablero[c].Length;
-                    int left = (total + 1) / 2;
-                    int right = total / 2;
-                    string contenido = new string(' ', left) + casillasTablero[c] + new string(' ', right);
-                    
-                    if (casillasTablero[c].ToLower() == "agua")
-                    {
-                        stringBuilder.Append("\u001b[36m" + "[" + contenido + "]" + "\u001b[0m"); // Azul claro con ANSI
-                    }                   
-                    else
-                    {
-                        bool esHundido = false;
-                        foreach (var barco in barcos)
-                        {                        
-                            if (casillasTablero[c] == (barco.Nombre + "_T") && barco.Hundido())
-                            {
-                                esHundido = true;
-                                break; // Ya sabemos que está hundido, podemos salir del bucle
-                            }
-                        }
-
-                        // Si el barco en la casilla está hundido, lo imprimimos en rojo
-                        if (esHundido)
-                        {
-                            stringBuilder.Append("\u001b[91m" + "[" + contenido + "]" + "\u001b[0m");
-                        }
-                        else
-                        {
-                            stringBuilder.Append("[" + contenido + "]"); 
-                        }
-                    }
-                }
-                
-                stringBuilder.AppendLine();
-            }
-
-            return stringBuilder.ToString();
-        }
-        */
         public string DibujarTablero()
         {
             int maxTam = 0;
@@ -242,7 +181,7 @@ namespace Hada
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            // Agregar números de columna 
+            // añadir números de columna 
             stringBuilder.Append(" "); 
             for (int j = 0; j < TamTablero; j++)
             {
@@ -250,10 +189,9 @@ namespace Hada
             }
             stringBuilder.AppendLine();
 
-            // Dibujar el tablero con números de fila
+            // añadir números de fila
             for (int i = 0; i < TamTablero; i++)
-            {
-                // Agregar número de fila al inicio de cada línea
+            {                
                 stringBuilder.Append(i.ToString().PadLeft(2) + " ");
 
                 for (int j = 0; j < TamTablero; j++)
@@ -280,7 +218,7 @@ namespace Hada
                             }
                         }
 
-                        // Si el barco en la casilla está hundido, lo imprimimos en rojo
+                        // Si esta hundido se imprime en rojo
                         if (esHundido)
                         {
                             stringBuilder.Append("\u001b[91m" + "[" + contenido + "]" + "\u001b[0m"); // Rojo brillante

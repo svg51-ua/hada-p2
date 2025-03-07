@@ -138,7 +138,6 @@ namespace Hada
         /// <returns></returns>
         private bool comprobarCoordenada(Coordenada posicion, int tamañoBarco, char orientacion, int tamTablero, List<Coordenada> ocupadas)
         {
-            bool disponible = true;
             for (int i = 0; i < tamañoBarco; i++)
             {
                 int fila, columna;
@@ -162,7 +161,6 @@ namespace Hada
 
                 if (ocupadas.Contains(nuevaPos) || columna > tamTablero || fila > tamTablero)
                 {
-                    //disponible = false;
                     return false;
                 }
             }
