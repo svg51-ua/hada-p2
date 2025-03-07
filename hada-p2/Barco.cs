@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Hada
 {
+    /// <summary>
+    /// Esta clase tiene como función principal es almacenar las coordenadas del barco en el 
+    /// tablero, registrar los disparos recibidos y comprobar si el barco se ha hundido.
+    /// </summary>
     public class Barco
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<Coordenada, String> CoordenadasBarco { get; private set; }
         public string Nombre { get; set; }
         public int NumDanyos { get; set; } 
@@ -16,6 +23,13 @@ namespace Hada
         public event EventHandler<TocadoArgs> EventoTocado;
         public event EventHandler<HundidoArgs> EventoHundido;
 
+        /// <summary>
+        /// Este constructor crea mediante la información pasada por parametro un nuevo barco
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="longitud"></param>
+        /// <param name="orientacion"></param>
+        /// <param name="coordenadaInicio"></param>
         public Barco (string nombre, int longitud, char orientacion, Coordenada coordenadaInicio)
         {
             Nombre = nombre;
@@ -37,6 +51,11 @@ namespace Hada
             }
         }
 
+        /// <summary>
+        /// Este metodo marca y cuenta las coordenadas en las que se encuentra el barco que han recibido un 
+        /// disparo añadiendo al final de su nombre un _T
+        /// </summary>
+        /// <param name="c"></param>
         public void Disparo (Coordenada c)
         {
             if (CoordenadasBarco.ContainsKey(c))
@@ -56,6 +75,10 @@ namespace Hada
 
         }
 
+        /// <summary>
+        /// Este metodo comprueba si el barco esta hundido, y devuelve true si asi es
+        /// </summary>
+        /// <returns></returns>
         public bool Hundido()
         {
             foreach (var hundido in CoordenadasBarco.Values)
@@ -65,6 +88,11 @@ namespace Hada
             return true;
         }
 
+        /// <summary>
+        /// Este metodo devuelve una representacion en cadena del barco incluyendo datos como el nombre, el numero
+        /// de disparos, si esta hundido y las coordenadas de ese barco.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             bool estado = Hundido();
