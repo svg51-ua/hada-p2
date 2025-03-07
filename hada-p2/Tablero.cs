@@ -210,6 +210,8 @@ namespace Hada
             stringBuilder.Append("Coordenadas tocadas: ");
             stringBuilder.AppendLine(string.Join(" ", coordenadasTocadas));
             stringBuilder.AppendLine();
+            stringBuilder.AppendLine("CASILLAS TABLERO");
+            stringBuilder.AppendLine("----------------");
             stringBuilder.Append(DibujarTablero());
             return stringBuilder.ToString();
         }
@@ -226,7 +228,7 @@ namespace Hada
             if (!coordenadasTocadas.Contains(e.CoordenadaImpacto))
             {
                 coordenadasTocadas.Add(e.CoordenadaImpacto);
-                Console.WriteLine($"TABLERO: Barco [{e.Nombre}] tocado en Coordenada: [{e.CoordenadaImpacto}]");
+                Console.WriteLine($"TABLERO: Barco {e.Nombre} tocado en Coordenada: [{e.CoordenadaImpacto}]");
             }
         }
 
@@ -238,6 +240,14 @@ namespace Hada
         /// <param name="e">argumentos del evento que contienen el nombre del barco hundido</param>
         private void cuandoEventoHundido(object sender, HundidoArgs e)
         {
+            foreach (var barco in barcos)
+            {
+                if (barco.Nombre == e.Nombre)
+                {
+                    barcosEliminados.Add(barco);
+                    break;
+                }
+            }
             Console.WriteLine($"TABLERO: Barco [{e.Nombre}] hundido!!");
             bool hundido = true;
             foreach (var barco in barcos)
@@ -250,7 +260,8 @@ namespace Hada
 
             if (hundido)
             {
-                EventoFinPartida(this, new EventArgs());
+                Console.WriteLine("PARTIDA FINALIZADA!!\n");
+                EventoFinPartida(this, EventArgs.Empty);
             }
         }
 

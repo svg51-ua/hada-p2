@@ -25,56 +25,41 @@ namespace Hada
             {
                 new Barco ("SANTA MARIA", 2, 'v', new Coordenada(2, 3)),
                 new Barco ("LA NIÑA", 3, 'h', new Coordenada(6, 1)),
-                new Barco ("lA PINTA", 1, 'v', new Coordenada(5, 5))
+                new Barco ("LA PINTA", 1, 'v', new Coordenada(5, 5))
             };
             // declaramos el tablero
             Tablero tablero = new Tablero(9, barcos);
             int barcosTotales = barcos.Count;
-            int barcosHundidos = 0;
+            tablero.EventoFinPartida += cuandoEventoFinPartida;
 
             while (!finPartida)
-            {
-                
-                foreach (var barco in barcos)
-                {
-                    if (barco.Hundido())
-                    {
-                        barcosHundidos += 1;
-                    }
-                }
-                
-                if(barcosTotales == barcosHundidos)
+            {                    
+                Console.WriteLine(tablero.ToString());
+                Console.Write("Introduce la cordenada a la que disparar FILA,COLUMNA ('S' para Salir): ");
+                string entrada = Console.ReadLine();
+                Console.WriteLine("\n");
+                if (entrada.ToLower() == "s") // para salir del juego
                 {
                     cuandoEventoFinPartida(this, EventArgs.Empty);
+
                 }
-                
-                else {
-                    Console.WriteLine(tablero.ToString());
-                    Console.Write("Introduce la cordenada a la que disparar FILA,COLUMNA ('S' para Salir): ");
-                    string entrada = Console.ReadLine();
-                    if (entrada.ToLower() == "s") // para salir del juego
+
+                else
+                {
+                    string[] partes = entrada.Split(',');
+                    if (partes.Length == 2 && int.TryParse(partes[0], out int fila) &&
+                        int.TryParse(partes[1], out int columna))
                     {
-                        cuandoEventoFinPartida(this, EventArgs.Empty);
-
+                        Coordenada disparo = new Coordenada(fila, columna);
+                        tablero.Disparar(disparo);
                     }
-
                     else
                     {
-                        string[] partes = entrada.Split(',');
-                        if (partes.Length == 2 && int.TryParse(partes[0], out int fila) &&
-                            int.TryParse(partes[1], out int columna))
-                        {
-                            Coordenada disparo = new Coordenada(fila, columna);
-                            tablero.Disparar(disparo);
-                        }
-                        else
-                        {
 
-                            Console.WriteLine("Formato incorreto, use el formato FILA, COLUMNA. ");
-                        }
+                        Console.WriteLine("Formato incorreto, use el formato FILA, COLUMNA. ");
                     }
                 }
-                barcosHundidos = 0;
+                
 
             }
         }
@@ -93,11 +78,10 @@ namespace Hada
         /// Este metodo será llamado cuando se quiera finalizar el juego o todos los barcos 
         /// ya hayan sido hundidos
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">objeto que envia el evento</param>
+        /// <param name="e">argumentos del evento</param>
         private void cuandoEventoFinPartida(object sender, EventArgs e)
         {
-            Console.WriteLine("PARTIDA FINALIZADA!!\n");
             finPartida = true;
         }
     }
